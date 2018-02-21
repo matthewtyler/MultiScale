@@ -14,7 +14,7 @@ make_prior <- function(data) {
 
     prior <- list()
 
-    if (ndim > 0) {
+    if (data$D > 0) {
         prior$sigma.inv.gamma <- diag(data$D)
         prior$mu.gamma <- rep(0, data$d)
         prior$sigma.inv.ab <- (1/25.0) * diag(data$D)
@@ -127,7 +127,7 @@ fit_intercepts <- function(data, prior = NULL, bayes = FALSE, ...) {
 #' Y[Y %in% 4:6] <- -1
 #' Y[Y %in% c(0, 7:9)] <- NA
 #' data <- list(Y = Y, N = dim(Y)[1], J = dim(Y)[2], D = 2)
-#' prior <- make_priors(data)
+#' prior <- make_prior(data)
 #' init <- make_starts(data)
 #' lout <- multiscale(method = "sparse", prior = prior, data = data, init = init)
 #' var(lout$gamma)
