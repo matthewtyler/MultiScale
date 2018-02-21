@@ -16,8 +16,8 @@ make_prior <- function(data) {
 
     if (data$D > 0) {
         prior$sigma.inv.gamma <- diag(data$D)
-        prior$mu.gamma <- rep(0, data$d)
-        prior$sigma.inv.ab <- (1/25.0) * diag(data$D)
+        prior$mu.gamma <- rep(0, data$D)
+        prior$sigma.inv.ab <- (1/25.0) * diag(data$D + 1)
         prior$mu.ab <- rep(0, data$D + 1)
     }
 
@@ -38,44 +38,17 @@ make_starts <- function(data) {
     return(list(alpha = alpha, beta = beta, gamma = gamma))
 }
 
-#' Loss function for Bayes MAP estimation
-#'
-#' Do not call directly! Used by fit_intercepts
-#'
-#' @inheritParams multiscale_sparse
-
-
-probit_log_prob <- function(params, data, priors) {
-
-    alpha <- params
-
-    lp <- 0
-    for (j in 1:data$J) {
-        lp <- lp + dnorm(alpha[j],
-                         mean = prior$mu.ab,
-                         sd = sqrt(1/ prior$ sigma.inv.ab),
-                         log = TRUE)
-
-        ll.i <- ifelse(data$Y[, j] == 1, pnorm(alpha[j], mean = 0, sd = 1, log = TRUE), ifelse(data$Y[, j] == -1, log(1 - pnorm(alpha[j])), NA))
-
-        lp <- lp + sum(ll.i, na.rm = TRUE)
-    }
-
-    return(-1 * lp)
-}
 
 #' Fit an intercept-only binary choice model
 #'
 #' Do not call directly! Used by multiscale
 #'
 #' @inheritParams multiscale_sparse
-#' @param bayes Logical, set to true if the MAP estimate is desired
-#'     instead of the MLE.
 #'
 #' @return A list only containing intercepts \code{alpha}.
 
 
-fit_intercepts <- function(data, prior = NULL, bayes = FALSE, ...) {
+fit_intercepts <- function(data, prior = NULL, ...) {
     ## intercept from probit, use as start value if fullbayes
     probalph = rep(NA, data$J)
     for (j in 1:data$J) {
@@ -83,20 +56,6 @@ fit_intercepts <- function(data, prior = NULL, bayes = FALSE, ...) {
         DV <- DV[complete.cases(DV)]  # get errors without this line for some reason
         mod = glm(DV ~ 1, family = binomial(link = "probit"))
         probalph[j] = coef(mod)[1]
-    }
-
-    if (bayes) {
-        message("Finding MAP estimate for 0-d model\n\n")
-
-        out <- optim(par = probalph, fn = probit.log.prob, data = data, priors = priors,
-            method = "BFGS")
-
-        if (out$convergence != 0) {
-            warning("Warning! MAP estimation didn't converge after", out$counts,
-                "iterations. Convergence code:", out$convergence)
-        }
-        probalpha <- out$par
-
     }
 
     return(list(alpha = probalph))
