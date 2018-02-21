@@ -7,11 +7,10 @@
 multiscale(method = "sparse", ...)
 }
 \arguments{
-\item{method}{One of \code{c("sparse", "dense", "intercepts")},
+\item{method}{One of \code{c("sparse", "intercepts")},
 with \code{"sparse"} as the default. If \code{"intercepts"},
 estimate an intercept-only model. Otherwise, estimate a model
-with positive dimension, choosing \code{"dense"} only if there
-is not a lot of missing data.}
+with positive dimension.}
 
 \item{...}{Parameters to pass to estimation methods.}
 }
@@ -33,9 +32,9 @@ Y[Y \%in\% 1:3] <- 1
 Y[Y \%in\% 4:6] <- -1
 Y[Y \%in\% c(0, 7:9)] <- NA
 data <- list(Y = Y, N = dim(Y)[1], J = dim(Y)[2], D = 2)
-prior <- make_priors(data)
+prior <- make_prior(data)
 init <- make_starts(data)
 lout <- multiscale(method = "sparse", prior = prior, data = data, init = init)
-var(lout$gamma)
+cor(lout$gamma)
 }
 }

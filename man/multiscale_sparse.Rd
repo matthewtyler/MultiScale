@@ -36,8 +36,8 @@ A list of estimated parameters \code{alpha}, \code{beta}, \code{gamma}
 }
 \description{
 The user should never call this function directly! Use the
-MultiScale function instead. The sparse (as opposed to dense)
+multiscale function instead. The sparse (as opposed to dense)
 algorithm ignores the latent variables for missing vote
 observations when updating the global parameters alpha, beta,
-gamma. It is much more robust in the presence of many missing votes
+gamma. It is robust in the presence of many missing votes.
 }
