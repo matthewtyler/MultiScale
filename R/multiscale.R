@@ -1,5 +1,6 @@
 #' Make Prior Means and Precisions
 #'
+#' @export
 #' @inheritParams multiscale_sparse
 #' @return A list of estimated prior variables
 #' #' \itemize{
@@ -25,6 +26,7 @@ make_prior <- function(data) {
 
 #' Make Parameter Initialization Values
 #'
+#' @export
 #' @inheritParams multiscale_sparse
 #' @return A list of initialized parameter values for \code{alpha},
 #'     \code{beta}, and \code{gamma}
@@ -116,6 +118,7 @@ fit_intercepts <- function(data, prior = NULL, bayes = FALSE, ...) {
 #' @return A list of estimated parameter values for \code{alpha},
 #'     \code{beta}, and \code{gamma} --- the latter two not included
 #'     if \code{"intercepts"} is chosen
+#' @export
 #' @examples \dontrun{
 #' data(s109) # from pscl package
 #' data(s109)
