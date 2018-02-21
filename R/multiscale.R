@@ -67,11 +67,10 @@ fit_intercepts <- function(data, prior = NULL, ...) {
 #' Wrapper function for \code{multiscale_sparse} or
 #' \code{multiscalle_dense}.
 #'
-#' @param method One of \code{c("sparse", "dense", "intercepts")},
+#' @param method One of \code{c("sparse", "intercepts")},
 #'     with \code{"sparse"} as the default. If \code{"intercepts"},
 #'     estimate an intercept-only model. Otherwise, estimate a model
-#'     with positive dimension, choosing \code{"dense"} only if there
-#'     is not a lot of missing data.
+#'     with positive dimension.
 #' @param ... Parameters to pass to estimation methods.
 #' @inheritParams multiscale_sparse
 #' @return A list of estimated parameter values for \code{alpha},
@@ -89,14 +88,12 @@ fit_intercepts <- function(data, prior = NULL, ...) {
 #' prior <- make_prior(data)
 #' init <- make_starts(data)
 #' lout <- multiscale(method = "sparse", prior = prior, data = data, init = init)
-#' var(lout$gamma)
+#' cor(lout$gamma)
 #' }
 
 multiscale <- function(method = "sparse", ...) {
     if (method == "sparse") {
         multiscale_sparse(...)
-    } else if (method == "dense") {
-        multiscale_dense(...)
     } else if (method == "intercepts") {
         fit_intercepts(...)
     } else {

@@ -1,10 +1,10 @@
 #' Multidimensional scaling WITH large amounts of missing data.
 #'
 #' The user should never call this function directly! Use the
-#' MultiScale function instead. The sparse (as opposed to dense)
+#' multiscale function instead. The sparse (as opposed to dense)
 #' algorithm ignores the latent variables for missing vote
 #' observations when updating the global parameters alpha, beta,
-#' gamma. It is much more robust in the presence of many missing votes
+#' gamma. It is robust in the presence of many missing votes.
 #'
 #' @param prior A list of priors for the parameters ab, gamma:
 #' \itemize{
@@ -29,11 +29,11 @@
 multiscale_sparse <- function(prior, data, init, max.iter = 250, tol = 1e-04, verbose = TRUE) {
 
     if (verbose) {
+        message("")
         message(">>>WARNING:<<<")
+        message("")
         message("The parameters of this model are NOT locally identified. Importantly, estimated beta and gamma will not be necessarily be the same when this algorithm is re-used. For more information, see Rivers, Douglas. 2003. Identification of Multidimensional Spatial Voting Models.")
-
-        stopifnot(menu(c("Yes", "No"), title = "This function is usually slower than MultiScaleDense, but works with large amounts of missing data. Proceed?") ==
-            1)
+        message("")
     }
 
     data$rows.obs <- list()
