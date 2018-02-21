@@ -48,7 +48,7 @@ make_starts <- function(data) {
 #' @return A list only containing intercepts \code{alpha}.
 
 
-fit_intercepts <- function(data, prior = NULL, ...) {
+fit_intercepts <- function(data) {
     ## intercept from probit, use as start value if fullbayes
     probalph = rep(NA, data$J)
     for (j in 1:data$J) {
