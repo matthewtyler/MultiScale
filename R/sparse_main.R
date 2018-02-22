@@ -1,7 +1,7 @@
 #' Make Prior Means and Precisions
 #'
 #' @export
-#' @inheritParams multiscale_sparse
+#' @inheritParams multiscale
 #' @return A list of estimated prior variables
 #' #' \itemize{
 #' \item \code{sigma.inv.ab} a \eqn{(D+1)\times (D+1)} positive definite matrix corresponding to the inverse of the prior covariance matrix for \eqn{(\alpha, \beta)}.
@@ -27,7 +27,7 @@ make_prior <- function(data) {
 #' Make Parameter Initialization Values
 #'
 #' @export
-#' @inheritParams multiscale_sparse
+#' @inheritParams multiscale
 #' @return A list of initialized parameter values for \code{alpha},
 #'     \code{beta}, and \code{gamma}
 
@@ -43,7 +43,7 @@ make_starts <- function(data) {
 #'
 #' Do not call directly! Used by multiscale
 #'
-#' @inheritParams multiscale_sparse
+#' @inheritParams multiscale
 #'
 #' @return A list only containing intercepts \code{alpha}.
 
@@ -106,9 +106,7 @@ fit_intercepts <- function(data) {
 #' cor(lout$gamma)
 #' }
 
-multiscale <- function(method == "sparse", prior, data, init, max.iter = 250, tol = 1e-04, verbose = TRUE) {
-
-
+multiscale <- function(method = "sparse", prior, data, init, max.iter = 250, tol = 1e-04, verbose = TRUE) {
 
     if (method == "intercepts") {
         fit_intercepts(data)

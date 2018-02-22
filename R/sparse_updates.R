@@ -7,7 +7,7 @@
 #' @param alpha A \eqn{J} vector of intercepts.
 #' @param beta An \eqn{J \times D} matrix of question slope
 #'     parameters.
-#' @inheritParams multiscale_sparse
+#' @inheritParams multiscale
 #'
 #' @return An updated \eqn{N \times D} matrix of actor ideal points.
 update.gamma <- function(Z, alpha, beta, prior, data) {
@@ -33,7 +33,7 @@ update.gamma <- function(Z, alpha, beta, prior, data) {
 #'
 #' @param Z An \eqn{N \times J} matrix of latent variables.
 #' @param gamma An \eqn{N \times D} matrix of actor ideal points.
-#' @inheritParams multiscale_sparse
+#' @inheritParams multiscale
 #'
 #' @return An updated \eqn{J \times (D+1)} matrix of question
 #'     intercepts and slopes
@@ -63,7 +63,7 @@ update.ab <- function(Z, gamma, prior, data) {
 #' @param beta An \eqn{J \times D} matrix of question slope
 #'     parameters.
 #' @param gamma An \eqn{N \times D} matrix of actor ideal points.
-#' @inheritParams multiscale_sparse
+#' @inheritParams multiscale
 #'
 #' @return An updated \eqn{N \times J} matrix of latent variables
 
