@@ -1,6 +1,6 @@
 # MultiScale
 
-Extends the EM algorithm of Imai, Lo, and Olmsted (2016, *Annual
+Extends the EM algorithm of Imai, Lo, and Olmsted (2016, *American
 Political Science Review*) for the quadratic utility, Gaussian
 error-differences spatial voting model to multiple dimensions and
 potentially sparse data.
